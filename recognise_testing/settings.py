@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -124,3 +124,7 @@ STATIC_URL = '/static/'
 #When the request is very large
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 5242880
 DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

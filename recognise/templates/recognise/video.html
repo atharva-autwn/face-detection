@@ -65,8 +65,12 @@
 
 </style>
 
+{% if name %}
+    <h4>name</h4>
+{% endif %}
 <div  class="cntr" ,align="center">
-    <a href="{% url 'recognise' %}"><button>Let's Begin</button></a>
+    <a href="{% url 'recognise' %}"><button>Open CV</button></a>
+    <a href="{% url 'index' %}"><button>JavaScript</button></a>
 </div>
 
 {% endblock content %}

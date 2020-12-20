@@ -1,5 +1,8 @@
 from django.db import models
-from picklefield.fields import PickledObjectField
 
-class SomeObject(models.Model):
-    args = PickledObjectField()
+class Images(models.Model):
+    name = models.CharField(max_length=50, )
+    file = models.ImageField()
+
+    def __str__(self):
+        return self.name
