@@ -7,7 +7,8 @@ urlpatterns = [
     path('', default , name = 'default'),
     path('recognise/', recognise_view , name = 'recognise'),
     path('image/',image.as_view() ,name='image'),
-     path('index', index, name="index"),
+    path('index', index, name="index"),
+    path('upload/', upload, name="upload_image")
 ]
 
 if settings.DEBUG:

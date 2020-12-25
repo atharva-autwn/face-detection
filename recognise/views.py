@@ -9,6 +9,7 @@ from rest_framework.parsers import *
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from .forms import *
 import cv2
 
 def default(request):
@@ -85,3 +86,35 @@ def randomString(stringLength=5):
     """Generate a random string of fixed length """
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(stringLength))
+
+'''
+def upload(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save() 
+            return HttpResponse('<h1> Done </h1>')
+    else:
+        form = ImageUploadForm()
+    return render(request, 'recognise/upload_image.html' , {'form' : form})
+'''
+
+def upload(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            img_obj = form.instance
+            print(img_obj.file.url[1:])
+            image = cv2.imread(img_obj.file.url[1:])
+            name = recognize(image)
+            if name!=[]:
+                img_obj.name=name[0]
+            else:
+                 img_obj.name = 'unknown'
+            print(img_obj.file.url)
+            img_obj.save(update_fields=["name"])
+            return render(request, 'recognise/upload_image.html', {'form': form, 'img_obj': img_obj})
+    else:
+        form = ImageUploadForm()
+    return render(request, 'recognise/upload_image.html', {'form': form})
